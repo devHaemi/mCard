@@ -1,5 +1,5 @@
 import { css } from '@emotion/react'
-import { colorPalette } from './colorPalette'
+import { colorPalette } from '@/styles/colorPalette'
 
 export default css`
   ${colorPalette}
