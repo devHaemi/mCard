@@ -1,19 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import reportWebVitals from './reportWebVitals'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { Global } from '@emotion/react'
+
+import reportWebVitals from './reportWebVitals'
 import { AlertContextProvider } from '@/contexts/AlertContext'
+import globalStyles from '@/styles/globalStyles'
 import App from './App'
 
-import globalStyles from './styles/globalStyles'
+const client = new QueryClient({
+  defaultOptions: {},
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <Global styles={globalStyles} />
-    <AlertContextProvider>
-      <App />
-    </AlertContextProvider>
+    <QueryClientProvider client={client}>
+      <AlertContextProvider>
+        <App />
+      </AlertContextProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
 )
 
