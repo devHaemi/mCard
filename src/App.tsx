@@ -1,7 +1,6 @@
 import './App.css'
 
 import Button from '@/components/shared/Button'
-import Input from '@/components/shared/Input'
 import Text from '@/components/shared/Text'
 import TextField from '@/components/shared/TextField'
 
