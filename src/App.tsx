@@ -3,8 +3,11 @@ import './App.css'
 import Button from '@/components/shared/Button'
 import Text from '@/components/shared/Text'
 import TextField from '@/components/shared/TextField'
+import { useAlertContext } from '@/contexts/AlertContext'
 
 function App() {
+  const { open } = useAlertContext()
+
   return (
     <>
       <Text display="block" typography="t1" color="red">
@@ -44,6 +47,20 @@ function App() {
         hasError={true}
         helpMessage="비밀번호가 맞지 않습니다."
       />
+
+      <Button
+        onClick={() => {
+          open({
+            title: '카드신청완료',
+            description: '내역페이지에서 확인하세요.',
+            onButtonClick: () => {
+              //
+            },
+          })
+        }}
+      >
+        Alert Open
+      </Button>
     </>
   )
 }
