@@ -1,6 +1,7 @@
+import { useQuery } from 'react-query'
+
 import ListRow from '@/components/shared/ListRow'
 import { getCards } from '@/remote/card'
-import { useQuery } from 'react-query'
 
 function CardList() {
   const { data } = useQuery(['cards'], () => getCards())
