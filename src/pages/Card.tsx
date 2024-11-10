@@ -1,13 +1,14 @@
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
+import { motion } from 'framer-motion'
+import { css } from '@emotion/react'
 
 import { getCard } from '@/remote/card'
-import Top from '@/components/shared/Top'
-import ListRow from '@/components/shared/ListRow'
-import FixedBottomButton from '@/components/shared/FixedBottomButton'
-import Flex from '@/components/shared/Flex'
-import Text from '@/components/shared/Text'
-import { css } from '@emotion/react'
+import Top from '@shared/Top'
+import ListRow from '@shared/ListRow'
+import Flex from '@shared/Flex'
+import Text from '@shared/Text'
+import FixedBottomButton from '@shared/FixedBottomButton'
 
 function CardPage() {
   const { id = '' } = useParams()
@@ -32,13 +33,30 @@ function CardPage() {
       <ul>
         {benefit.map((text, index) => {
           return (
-            <ListRow
-              key={text}
-              left={<IconCheck />}
-              contents={
-                <ListRow.Texts title={`혜택 ${index + 1}`} subTitle={text} />
-              }
-            ></ListRow>
+            <motion.li
+              initial={{
+                opacity: 0,
+                translateX: -90,
+              }}
+              transition={{
+                duration: 0.7,
+                ease: 'easeInOut',
+                delay: index * 0.1,
+              }}
+              animate={{
+                opacity: 1,
+                translateX: 0,
+              }}
+            >
+              <ListRow
+                as="div"
+                key={text}
+                left={<IconCheck />}
+                contents={
+                  <ListRow.Texts title={`혜택 ${index + 1}`} subTitle={text} />
+                }
+              />
+            </motion.li>
           )
         })}
       </ul>
