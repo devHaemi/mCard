@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals'
 import { AlertContextProvider } from '@/contexts/AlertContext'
 import globalStyles from '@/styles/globalStyles'
 import App from './App'
+import AuthGuard from '@/components/auth/AuthGuard'
 
 const client = new QueryClient({
   defaultOptions: {},
@@ -19,7 +20,9 @@ root.render(
     <Global styles={globalStyles} />
     <QueryClientProvider client={client}>
       <AlertContextProvider>
-        <App />
+        <AuthGuard>
+          <App />
+        </AuthGuard>
       </AlertContextProvider>
     </QueryClientProvider>
   </>,
