@@ -1,13 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { QueryClient, QueryClientProvider } from 'react-query'
 import { Global } from '@emotion/react'
+import globalStyles from '@/styles/globalStyles'
+import { RecoilRoot } from 'recoil'
+import { QueryClient, QueryClientProvider } from 'react-query'
+
+import { AlertContextProvider } from '@/contexts/AlertContext'
+import AuthGuard from '@/components/auth/AuthGuard'
+import App from './App'
 
 import reportWebVitals from './reportWebVitals'
-import { AlertContextProvider } from '@/contexts/AlertContext'
-import globalStyles from '@/styles/globalStyles'
-import App from './App'
-import AuthGuard from '@/components/auth/AuthGuard'
 
 const client = new QueryClient({
   defaultOptions: {},
@@ -15,18 +17,18 @@ const client = new QueryClient({
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
-  // <React.StrictMode>
-  <>
+  <React.StrictMode>
     <Global styles={globalStyles} />
-    <QueryClientProvider client={client}>
-      <AlertContextProvider>
-        <AuthGuard>
-          <App />
-        </AuthGuard>
-      </AlertContextProvider>
-    </QueryClientProvider>
-  </>,
-  // </React.StrictMode>,
+    <RecoilRoot>
+      <QueryClientProvider client={client}>
+        <AlertContextProvider>
+          <AuthGuard>
+            <App />
+          </AuthGuard>
+        </AlertContextProvider>
+      </QueryClientProvider>
+    </RecoilRoot>
+  </React.StrictMode>,
 )
 
 // If you want to start measuring performance in your app, pass a function
