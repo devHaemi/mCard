@@ -1,5 +1,13 @@
 import useUser from '@/hooks/auth/useUser'
+import { app, storage, store } from '@/remote/firebase'
 import styled from '@emotion/styled'
+import { getAuth, updateProfile } from 'firebase/auth'
+import { ChangeEvent } from 'react'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { collection, doc, updateDoc } from 'firebase/firestore'
+import { COLLECTIONS } from '@/constants'
+import { useSetRecoilState } from 'recoil'
+import { userAtom } from '@/atoms/user'
 
 function MyImage({
   size = 40,
@@ -9,9 +17,36 @@ function MyImage({
   mode?: 'default' | 'upload'
 }) {
   const user = useUser()
+  const setUser = useSetRecoilState(userAtom)
 
-  const handleUploadImage = () => {
-    //
+  const handleUploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+
+    const currentUser = getAuth(app).currentUser
+
+    if (files == null || user == null || currentUser == null) {
+      return
+    }
+
+    const fileName = files[0].name
+    const storageRef = ref(storage, `users/${user.uid}/${fileName}`)
+
+    const uploaded = await uploadBytes(storageRef, files[0])
+
+    const downloadUrl = await getDownloadURL(uploaded.ref)
+
+    await updateProfile(currentUser, {
+      photoURL: downloadUrl,
+    })
+
+    await updateDoc(doc(collection(store, COLLECTIONS.USER), currentUser.uid), {
+      photoURL: downloadUrl,
+    })
+
+    setUser({
+      ...user,
+      photoURL: downloadUrl,
+    })
   }
 
   return (
