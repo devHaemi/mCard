@@ -32,15 +32,13 @@ function Terms({ onNext }: { onNext: (terms: ApplyValues['terms']) => void }) {
     [],
   )
 
-  const 모두동의되었는가 = Object.values(termsAgreements).every(
-    (동의여부) => 동의여부,
-  )
+  const allAgreed = Object.values(termsAgreements).every((agree) => agree)
 
   return (
     <div>
       <Agreement>
         <Agreement.Title
-          checked={모두동의되었는가}
+          checked={allAgreed}
           onChange={(e, checked) => {
             handleAllAgreement(e, checked)
           }}
@@ -65,7 +63,7 @@ function Terms({ onNext }: { onNext: (terms: ApplyValues['terms']) => void }) {
 
         <FixedBottomButton
           label="약관동의"
-          disabled={모두동의되었는가 === false}
+          disabled={allAgreed === false}
           onClick={() => {
             onNext(Object.keys(termsAgreements))
           }}
