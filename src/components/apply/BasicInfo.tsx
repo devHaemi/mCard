@@ -21,9 +21,7 @@ function BasicInfo({ onNext }: { onNext: (infoValues: InfoValues) => void }) {
     }))
   }, [])
 
-  const 모든정보가선택되었는가 = Object.values(infoValues).every(
-    (value) => value,
-  )
+  const allSelected = Object.values(infoValues).every((value) => value)
 
   return (
     <div>
@@ -57,7 +55,7 @@ function BasicInfo({ onNext }: { onNext: (infoValues: InfoValues) => void }) {
         onClick={() => {
           onNext(infoValues)
         }}
-        disabled={모든정보가선택되었는가 === false}
+        disabled={allSelected === false}
       />
     </div>
   )
