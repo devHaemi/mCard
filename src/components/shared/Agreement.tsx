@@ -7,7 +7,7 @@ import Text from '@shared/Text'
 
 function Agreement({ children }: { children: React.ReactNode }) {
   return (
-    <Flex direction="column" css={agreementContainerStyles}>
+    <Flex as="ul" direction="column" css={agreementContainerStyles}>
       {children}
     </Flex>
   )
@@ -23,7 +23,7 @@ function AgreementTitle({
   onChange: (e: MouseEvent<HTMLElement>, checked: boolean) => void
 }) {
   return (
-    <Flex onClick={(e) => onChange(e, !checked)}>
+    <Flex as="li" onClick={(e) => onChange(e, !checked)}>
       <IconCheck withCircle={true} checked={checked} />
       <Text bold={true}>{children}</Text>
     </Flex>
@@ -42,7 +42,7 @@ function AgreementDescription({
   onChange: (e: MouseEvent<HTMLElement>, checked: boolean) => void
 }) {
   return (
-    <Flex>
+    <Flex as="li">
       <Flex
         onClick={(e) => {
           onChange(e, !checked)
